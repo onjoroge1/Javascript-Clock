@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--script src="jquery-1.11.2.min.js"></script-->
+<style>
+  body {
+  background-color: #232323;
+  color: #fff;
+  font-family: HelveticaNeue-UltraLight,'Helvetica Neue UltraLight','Helvetica Neue','Open Sans',Helvetica,Arial,sans-serif;
+  font-weight: 100;
+  line-height: 1;
+  }
+
+#theTime{
+  padding-top: 20%;
+  padding-left: 20%;
+  font-weight: 100;
+  font-size: 200px;
+}
+
+  </style>	
+<body>
+  <div id="theTime"></div>
+
+ 
+<script>
+var clockID;
+var yourTimeZoneFrom = -7.00; //time zone value where you are at
+
+var d = new Date();  
+
+var tzDifference = yourTimeZoneFrom * 60 + d.getTimezoneOffset();
+//convert the offset to milliseconds, add to targetTime, and make a new Date
+var offset = tzDifference * 60 * 1000;
+
+function UpdateClock() {
+    var tDate = new Date(new Date().getTime()+offset);
+    var in_hours = tDate.getHours()
+    var in_minutes=tDate.getMinutes();
+    var in_seconds= tDate.getSeconds();
+
+    if(in_minutes < 10)
+        in_minutes = '0'+in_minutes;
+    if(in_seconds<10)   
+        in_seconds = '0'+in_seconds;
+    if(in_hours<10) 
+        in_hours = '0'+in_hours;
+
+   document.getElementById('theTime').innerHTML = "" 
+                   + in_hours + ":" 
+                   + in_minutes + ":" 
+                   + in_seconds;
+
+}
+function StartClock() {
+   clockID = setInterval(UpdateClock, 500);
+}
+
+function KillClock() {
+  clearTimeout(clockID);
+}
+window.onload=function() {
+  StartClock();
+}
+</script>
+		
+</body>
+</html>
